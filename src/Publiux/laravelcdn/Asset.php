@@ -105,6 +105,7 @@ class Asset implements AssetInterface
         $this->included_directories = $this->default_include['directories'];
         $this->included_extensions = $this->default_include['extensions'];
         $this->included_patterns = $this->default_include['patterns'];
+        $this->included_files = $this->default_include['files'];
 
         $this->excluded_directories = $this->default_exclude['directories'];
         $this->excluded_files = $this->default_exclude['files'];
@@ -128,6 +129,9 @@ class Asset implements AssetInterface
 
         $this->default_exclude = isset($configurations['exclude']) ?
             array_merge($this->default_exclude, $configurations['exclude']) : $this->default_exclude;
+
+        $this->default_include['files'] = isset($configurations['include']['files']) ?
+            $configurations['include']['files'] : $this->default_include['files'];
     }
 
     /**
@@ -144,6 +148,14 @@ class Asset implements AssetInterface
     public function getIncludedExtensions()
     {
         return $this->included_extensions;
+    }
+
+    /**
+     * @return array
+     */
+    public function getIncludedFiles()
+    {
+        return $this->included_files;
     }
 
     /**

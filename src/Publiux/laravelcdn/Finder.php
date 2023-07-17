@@ -57,6 +57,16 @@ class Finder extends SymfonyFinder implements FinderInterface
 
         // get all allowed 'for upload' files objects (assets) and store them in an array
         $assets = [];
+
+         // Add specified files in the config to the assets collection
+        foreach ($asset_holder->getIncludedFiles() as $filePath) {
+            if (file_exists($filePath)) {
+                $file = new \SplFileInfo($filePath);
+                $this->console->writeln('<fg=cyan>'.'Path: '.$file->getRealpath().'</fg=cyan>');
+                $assets[] = $file;
+            }
+        }
+
         foreach ($this->files() as $file) {
             // user terminal message
             $this->console->writeln('<fg=cyan>'.'Path: '.$file->getRealpath().'</fg=cyan>');
